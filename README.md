@@ -1,6 +1,26 @@
 # tikzimg
 Script for fast creation of latex tikz images.
 
+## Examples:
+
+Open a tikz image template in editor that produces fig.tex and fig.svg in the current directory when saved.
+```bash
+tikzimg
+```
+
+Same but specify output location (can also use --output). 
+Will produce `/tmp/desired_output.svg` and `/tmp/desired_output.tex`.
+```bash
+tikzimg -o /tmp/desired_output.svg
+```
+
+Open an existing file in the editor and attempt to produce output.
+Will produce `./fig.svg` and `./fig.tex`.
+```bash
+tikzimg example.tex
+```
+
+## Notes
 
 - In python
 - Available system wide

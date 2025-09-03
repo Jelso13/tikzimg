@@ -2,7 +2,9 @@ import argparse
 import logging
 import subprocess
 from pathlib import Path
-from typing import NoReturn, Sequence
+from typing import Sequence
+
+from .core import process_command
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     # ... (code for parse_args is identical to the original script) ...
@@ -17,13 +19,15 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 def main(argv: Sequence[str] | None = None) -> int:
     logging.basicConfig(
         level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s',
+        format='%(asctime)s  - %(filename)s:%(lineno)d - %(levelname)s - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
     )
     args = parse_args(argv)
+    args.output = args.output.resolve()
 
     try:
         logging.info("RUNNING")
+        process_command(args)
     except (subprocess.CalledProcessError, FileNotFoundError) as e:
         logging.error(f"A critical error occurred: {e}")
         return 1
